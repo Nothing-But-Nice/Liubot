@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/findar/Liubot/issues"
   },
-  "homepage": "https://github.com/findar/Liubot#readme"
+  "homepage": "https://github.com/findar/Liubot#readme",
+  "dependencies": {
+    "discord.io": "^2.2.4"
+  }
 }
