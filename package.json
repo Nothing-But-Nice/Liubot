@@ -1,0 +1,19 @@
+{
+  "name": "liubot",
+  "version": "0.0.1",
+  "description": "A Discord bot that returns link to Lucy when queried.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/findar/Liubot.git"
+  },
+  "author": "Andrew Hodge",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/findar/Liubot/issues"
+  },
+  "homepage": "https://github.com/findar/Liubot#readme"
+}
