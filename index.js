@@ -10,6 +10,7 @@ var ITEM_LIST_KEYS = Object.keys(ITEM_LIST);
 
 bot.on('ready', function() {
     console.log(bot.username + " - (" + bot.id + ")");
+    console.log("To share this bot please use the following URL: https://discordapp.com/oauth2/authorize?&client_id=" + bot.id + "&scope=bot&permissions=0");
     console.log("I've loaded the file and it has: " + ITEM_LIST_KEYS.length + " items.");
 });
 
