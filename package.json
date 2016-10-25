@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/findar/Liubot#readme",
   "dependencies": {
+    "csvtojson": "^1.0.3",
     "discord.io": "^2.2.4"
   }
 }
