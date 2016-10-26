@@ -48,7 +48,8 @@ bot.on('message', function(user, userID, channelID, message, event) {
 
     var bot_string_regex = new RegExp(BOT_ACTIVATION_STRING, 'i');
     if (bot_string_regex.test(message)) {
-        var item_lookup_string = message.replace(BOT_ACTIVATION_STRING + " ", "");
+        var item_lookup_string = message.replace(BOT_ACTIVATION_STRING, "");
+        console.log(item_lookup_string);
         var found_items = fuse.search(item_lookup_string);
         var reply_message = "I was unable to find what you were looking for, please try again. ";
         if(found_items.length) {
