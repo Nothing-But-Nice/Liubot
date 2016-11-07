@@ -112,3 +112,22 @@ function getDataFromLucyAndSendToChannel(itemId, itemName, channelID) {
         }
     });
 }
+
+
+//HEROKU SPECIFIC - KEEPS APP FROM DIEING DUE TO PORT NOT BEING BOUND
+
+var express = require('express');
+var web_app = express();
+
+app.get('/', function(req, res) {
+    res.send('\n 👋 🌍 \n');
+});
+
+app.listen(process.env.PORT || 5000, function(err) {
+    if (err) {
+        throw err;
+    }
+    console.log("\n🚀  Liubot LIVES on PORT " + (process.env.PORT || 5000));
+});
+
+//END HEROKU SPECIFIC
