@@ -21,6 +21,7 @@
     "cheerio": "^0.22.0",
     "csvtojson": "^1.0.3",
     "discord.io": "^2.2.4",
+    "express": "^4.14.0",
     "fuse.js": "^2.5.0",
     "request": "^2.76.0"
   }
