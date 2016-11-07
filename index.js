@@ -8,7 +8,7 @@ var _FUSE = require('fuse.js');
 var fuse;
 
 //Configurable Paramaters
-var BOT_TOKEN = require('./BOT-TOKEN.json');
+var BOT_TOKEN = process.env.BOT_TOKEN || (require('./BOT-TOKEN.json')).token;
 var LUCY_ITEM_URL = "http://lucy.allakhazam.com/item.html?id=";
 var BOT_ACTIVATION_STRING = '!lucy';
 var FUSE_OPTIONS = {
@@ -39,7 +39,7 @@ converter.fromFile("./itemlist.txt",function(err,result){
 });
 
 var bot = new Discord.Client({
-    token: BOT_TOKEN.token,
+    token: BOT_TOKEN,
     autorun: true
 });
 
