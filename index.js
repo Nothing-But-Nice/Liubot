@@ -119,11 +119,11 @@ function getDataFromLucyAndSendToChannel(itemId, itemName, channelID) {
 var express = require('express');
 var web_app = express();
 
-app.get('/', function(req, res) {
+web_app.get('/', function(req, res) {
     res.send('\n 👋 🌍 \n');
 });
 
-app.listen(process.env.PORT || 5000, function(err) {
+web_app.listen(process.env.PORT || 5000, function(err) {
     if (err) {
         throw err;
     }
