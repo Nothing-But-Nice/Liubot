@@ -9,7 +9,6 @@ var fuse;
 
 //Configurable Paramaters
 var BOT_TOKEN = process.env.BOT_TOKEN;
-console.log(BOT_TOKEN);
 var LUCY_ITEM_URL = "http://lucy.allakhazam.com/item.html?id=";
 var BOT_ACTIVATION_STRING = '!lucy';
 var FUSE_OPTIONS = {
