@@ -1,17 +1,18 @@
 //External Dependencies
-var request = require('request');
-var cheerio = require('cheerio');
-var Discord = require('discord.io');
-var Converter = require("csvtojson").Converter;
-var converter = new Converter({});
-var _FUSE = require('fuse.js');
-var fuse;
+const request = require('request');
+const cheerio = require('cheerio');
+const Discord = require('discord.js');
+const Converter = require("csvtojson").Converter;
+const converter = new Converter({});
+const _FUSE = require('fuse.js');
+let fuse;
 
 //Configurable Paramaters
-var BOT_TOKEN = process.env.BOT_TOKEN;
-var LUCY_ITEM_URL = "http://lucy.allakhazam.com/item.html?id=";
-var BOT_ACTIVATION_STRING = '!lucy';
-var FUSE_OPTIONS = {
+// const BOT_TOKEN = process.env.BOT_TOKEN;
+const BOT_TOKEN = 'MjQwNTQyNTY4MTMwMTUwNDAz.DhQXIA.06i9iiL_UbsqWieEqMBrEcapg6c';
+const LUCY_ITEM_URL = "http://lucy.allakhazam.com/item.html?id=";
+const BOT_ACTIVATION_STRING = '!lucy';
+const FUSE_OPTIONS = {
     caseSensitive: false,
     shouldSort: true,
     // tokenize: true,
@@ -24,7 +25,7 @@ var FUSE_OPTIONS = {
     ]
 };
 
-var ITEM_LIST = [];
+let ITEM_LIST = [];
 
 converter.fromFile("./itemlist.txt",function(err,result){
     console.log("Converting csv to json...");
@@ -38,29 +39,27 @@ converter.fromFile("./itemlist.txt",function(err,result){
     }
 });
 
-var bot = new Discord.Client({
-    token: BOT_TOKEN,
-    autorun: true
-});
+const bot = new Discord.Client();
 
-bot.on('', (errMsg, code) => {
+bot.on('disconnect', (errMsg, code) => {
     console.error("ERROR WHEN TRYING TO CONNECT!!!");
     console.error(errMsg, code);
 });
 
-bot.on('ready', function() {
+bot.on('ready', () => {
     console.log(bot.username + " has begun operation.");
     console.log("To share this bot please use the following URL: \n" +
         "==========\n" +
-        "https://discordapp.com/oauth2/authorize?&client_id=" + bot.id + "&scope=bot&permissions=0\n" +
+        "https://discordapp.com/oauth2/authorize?&client_id=" + bot.user.id + "&scope=bot&permissions=0\n" +
         "==========");
 });
 
-bot.on('message', function(user, userID, channelID, message, event) {
+bot.on('message', (message) => {
 
+    let messageContent = message.content;
     var bot_string_regex = new RegExp(BOT_ACTIVATION_STRING, 'gi');
-    if (bot_string_regex.test(message)) {
-        var item_lookup_string = message.replace(BOT_ACTIVATION_STRING, "");
+    if (bot_string_regex.test(messageContent)) {
+        var item_lookup_string = messageContent.replace(BOT_ACTIVATION_STRING, "");
         console.log("Searching for: ", item_lookup_string);
         var found_items = fuse.search(item_lookup_string);
         var reply_message = "I was unable to find what you were looking for, please try again. ";
@@ -70,16 +69,13 @@ bot.on('message', function(user, userID, channelID, message, event) {
             for(var x = 0; x < top_results_count; x++) {
                 reply_message += "\n" + found_items[x].name + " : " + found_items[x].lucylink;
             }
-            getDataFromLucyAndSendToChannel(found_items[0].id, found_items[0].name, channelID);
+            getDataFromLucyAndSendToChannel(found_items[0].id, found_items[0].name, message.channel);
         }
-        bot.sendMessage({
-            to: channelID,
-            message: reply_message
-        });
+        message.channel.send(reply_message);
     }
 });
 
-function getDataFromLucyAndSendToChannel(itemId, itemName, channelID) {
+function getDataFromLucyAndSendToChannel(itemId, itemName, channel) {
     var options = {
         url: LUCY_ITEM_URL + itemId,
         headers: {
@@ -104,25 +100,21 @@ function getDataFromLucyAndSendToChannel(itemId, itemName, channelID) {
                 "\n---\n" +
                 parsed_text.trim() +
                 "\n```";
-            bot.sendMessage({
-                to: channelID,
-                message: formatted_message
-            });
+            channel.send(formatted_message);
         } else {
             console.log("ERROR: " + error);
-            bot.sendMessage({
-                to: channelID,
-                message: error
-            });
+            channel.send(error);
         }
     });
 }
 
+bot.login(BOT_TOKEN);
+
 
 //HEROKU SPECIFIC - KEEPS APP FROM DIEING DUE TO PORT NOT BEING BOUND
 
-var express = require('express');
-var web_app = express();
+const express = require('express');
+const web_app = express();
 
 web_app.get('/', function(req, res) {
     res.send('\n 👋 🌍 \n');
