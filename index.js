@@ -43,6 +43,11 @@ var bot = new Discord.Client({
     autorun: true
 });
 
+bot.on('', (errMsg, code) => {
+    console.error("ERROR WHEN TRYING TO CONNECT!!!");
+    console.error(errMsg, code);
+});
+
 bot.on('ready', function() {
     console.log(bot.username + " has begun operation.");
     console.log("To share this bot please use the following URL: \n" +
