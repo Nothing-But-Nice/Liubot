@@ -8,8 +8,7 @@ const _FUSE = require('fuse.js');
 let fuse;
 
 //Configurable Paramaters
-// const BOT_TOKEN = process.env.BOT_TOKEN;
-const BOT_TOKEN = 'MjQwNTQyNTY4MTMwMTUwNDAz.DhQXIA.06i9iiL_UbsqWieEqMBrEcapg6c';
+const BOT_TOKEN = process.env.BOT_TOKEN;
 const LUCY_ITEM_URL = "http://lucy.allakhazam.com/item.html?id=";
 const BOT_ACTIVATION_STRING = '!lucy';
 const FUSE_OPTIONS = {
